@@ -24,12 +24,21 @@
     --accent2: rgb(40,0,0);
     --accent3: rgb(0,0,40);
     --aws1: rgba(255,255,255,0.12);
+    --links: rgb(220,110,110);
 }
 
 body {
     background: 0;
     background-color: rgb(255,255,255);
     font-size: 65%;
+}
+
+a:link {
+    color: var(--links);
+}
+
+a:visited {
+    color: var(--links);
 }
 
 section > header.slide {
@@ -317,6 +326,8 @@ section > header.slide {
 	  Zidu Lin, Madappa Prakash, Sanjay Reddy, Ingo Tews, Frank
 	  Timmes, Donald Wilcox
 	</p>
+	&nbsp;<br>
+	<a href="https://s4mma.github.io">Back to S4MMA</a>
       </div>
     </header>
     
@@ -431,10 +442,10 @@ section > header.slide {
 
       <article class="slide">
 	<div class="div_header">
-	  <h2>"Horizons"</h2>
+	  <h2>Fundamental Questions</h2>
 	</div>
 	<div class="div_main">
-	  <ul>
+	  <ul class="tight">
 	    <li class="delayed">Can we identify the correct degrees of
 	      freedom at all
 	      relevant densities and temperatures?
