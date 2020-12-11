@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+	  content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <title>Simulations for Multi-Messenger Astronomy (S4MMA):
+      Nuclear matter and opacities
+    </title>
+
+    <!-- Inspire.js -->
+    <link href="https://isospin.roam.utk.edu/static/inspire_01_31_20/inspire.css"
+	  rel="stylesheet" />
+    <link href="https://isospin.roam.utk.edu/static/inspire_01_31_20/theme.css"
+	  rel="stylesheet" />
+    
+    <!-- <link href="talk.css" rel="stylesheet" /> -->
+    <style>
+      
+/* Change the accent colors for the "header" slide */
+:root {
+    --accent1: rgb(0,40,0);
+    --accent2: rgb(40,0,0);
+    --accent3: rgb(0,0,40);
+    --aws1: rgba(255,255,255,0.12);
+}
+
+body {
+    background: 0;
+    background-color: rgb(255,255,255);
+    font-size: 65%;
+}
+
+section > header.slide {
+    background: linear-gradient(45deg, var(--aws1) 25%, transparent 25%, transparent 75%, var(--aws1) 75%),
+	        linear-gradient(45deg, var(--aws1) 25%, transparent 25%, transparent 75%, var(--aws1) 75%) 20px 20px;
+    background-color: rgb(255,255,255);
+    /* background: url(../figs/nstar_plot_dim.png); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; 
+}
+
+.slide {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	padding: 2.5rem;
+	background: radial-gradient(transparent, rgba(200,200,200,.7)) var(--aws1);
+	color: black;
+}
+
+/* Trim the default Inspire.js margins */
+.slide ul {
+    padding: 0;
+    /* This is required to leave enough space on the left for
+       the bullet */
+    margin-left: 2.0em;
+    margin-top: 0;
+    margin-right: 1.0em;
+    margin-bottom: 0;
+}
+
+.slide li {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+.slide p {
+    padding:0;	
+    /* This is required to leave enough space on the left for
+       solitary paragraphs */
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+}
+
+.div_header {
+    position: absolute;
+    top: 0%;
+    left: 0%; 
+    width: 100%;
+    height: 7%;
+}
+
+.div_footer {
+    position: absolute;
+    top: 80%;
+    left: 0%; 
+    width: 100%;
+    height: 19%;
+}
+
+.div_left_panel {
+    position: absolute;
+    top: 12%;
+    left: 0%; 
+    width: 50%;
+    height: 87%;
+}
+
+.div_left_panel2 {
+    position: absolute;
+    top: 7%;
+    left: 0%; 
+    width: 50%;
+    height: 92%;
+}
+
+.div_main {
+    position: absolute;
+    top: 7%;
+    left: 0%; 
+    width: 100%;
+    height: 92%;
+}
+
+.div_right_panel {
+    position: absolute;
+    top: 12%;
+    left: 50%; 
+    width: 48%;
+    height: 87%;
+    vertical-align: middle;
+}
+
+.div_right_panel2 {
+    position: absolute;
+    top: 7%;
+    left: 50%; 
+    width: 48%;
+    height: 92%;
+    vertical-align: middle;
+}
+
+.img_class {
+    object-fit: scale-down;
+    display: block;
+    margin: auto;
+    padding: 0;
+    max-height: 80%;
+}
+
+.img_class2 {
+    object-fit: scale-down;
+    display: block;
+    margin: auto;
+    padding: 0;
+    max-height: 70%;
+}
+
+/* Set the H2 color */
+.slide h2 {
+    color: rgb(110,110,200);
+    padding:0;	
+    margin:0;
+}
+
+/* Modify the font scaling 
+.slide * {
+    font-size: 100%;
+}
+*/
+
+/* Remove Inspire.js default line separating table head and border */
+.slide tbody tr > * {
+    border: 0;
+}
+
+.reference {
+    padding: 0;	
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+    font-size: 75%;
+    color: rgb(150,50,150);
+}
+
+.utk {
+    color: rgb(255,130,0);
+}
+
+.highlight {
+    padding: 0;	
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+    color: rgb(220,150,150);
+}
+
+.big_highlight {
+    padding: 0;	
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+    color: rgb(220,150,150);
+    font-size: 200%;
+}
+
+.creference {
+    padding: 0;	
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0.5em;
+    font-size: 75%;
+    color: rgb(150,150,255);
+    text-align: center;
+}
+
+.tiny {
+  font-size: 50%;
+}
+
+.small {
+  font-size: 80%;
+}
+
+.large {
+  font-size: 150%;
+}
+
+.smaller {
+  font-size: 65%;
+}
+
+.tight li {
+    margin-top: 0.0em;
+    margin-bottom: 0.0em;
+}
+
+    </style>
+
+    <!-- MathJAX support:
+	 The margin command ensures smaller margins around equations
+      -->
+    <!--
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        },
+        jax: ["input/TeX","output/SVG"],
+        SVG: {
+          styles: {
+            '.MathJax_Display': {
+              "margin": 0
+            }
+          },
+          linebreaks: {
+            automatic: true
+          }
+        }
+      });
+    </script>
+    -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        },
+        "HTML-CSS": {
+          styles: {
+            '.MathJax_Display': {
+              "margin": 0
+            }
+          },
+          linebreaks: {
+            automatic: true
+          }
+        }
+      });
+    </script>
+    <script type="text/javascript"
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <!-- End MathJAX support -->
+    
+  </head>
+  
+  <body class="language-markup"
+	data-prism-plugins="normalize-whitespace"
+	data-resolution="880 660"
+	>
+    
+    <!-- 
+	 <body class="language-markup"
+	       data-prism-plugins="normalize-whitespace"
+	       data-duration="30"
+	       data-duration="1"
+	       >
+	   -->
+    
+    <header id="intro" class="slide">
+      <div class="small">
+	<!--
+	<p>(Use up and down arrows to navigate.)</p>
+	-->
+	<h1>WG7: Nuclear Matter and Neutrino Opacities</h1>
+	<h2>
+	  Andrew W. Steiner
+	</h2>
+	&nbsp;<br>
+	<center>UTK/ORNL</center>
+	&nbsp;<br>
+	<center>Dec. 11, 2020</center>
+	&nbsp;<br>
+	<p>
+	  Veronica Dexhimer, Christian Drischler, Eirik Endeve,
+	  Stefano Gandolfi, Jeremy Holt, Chuck Horowitz, Jim Lattimer,
+	  Zidu Lin, Madappa Prakash, Sanjay Reddy, Ingo Tews, Frank
+	  Timmes, Donald Wilcox
+	</p>
+      </div>
+    </header>
+    
+    <section>
+    
+      <!-- ------------------------------------------------ -->
+
+      <article class="slide">
+	<div class="div_header">
+	  <h2>Perspective</h2>
+	</div>
+	<div class="div_main">
+	</div>
+      </article>
+      
+      <!-- ------------------------------------------------ -->
+
+      <article class="slide">
+	<div class="div_header">
+	  <h2>Perspective</h2>
+	</div>
+	<div class="div_main">
+	  <ul>
+	    <li>From the S4MMA site: "concerns have been raised
+	      over whether NSF is providing sufficient support to the
+	      theory side of Multi-Messenger Astronomy"</li>
+	    <li>I think a more "holistic" perspective might
+	      be useful, long-range plan (preparing for 2025?)</li>
+	    <ul class="tight small">
+	      <li>NSF and DOE?</li>
+	      <li>More research funds: 
+		graduate students or postdocs,
+		hubs or single-PI grants?</li>
+	      <li>More tenure-track positions?</li>
+	      <li>More software engineers?</li>
+	      <li>More open-source and/or open data?</li>
+	      <li>More career development? TALENT, etc?</li>
+	    </ul>
+	    <li class="delayed">My
+	      claim: the single biggest challenge to our field at
+	      this level isn't NSF funding, <em>it's diversity, equity,
+	      and inclusion</em>.</li>
+	  </ul>
+	</div>
+      </article>
+      
+      <!-- ------------------------------------------------ -->
+
+      <article class="slide">
+	<div class="div_header">
+	  <h2>Other Comments</h2>
+	</div>
+	<div class="div_main">
+	  <ul>
+	    <li>Sanjay: Community software tools for modeling
+	      central engines (supernovae, NS-SN and NS-BH
+	      mergers, etc.) with standarized (EOS, opacities,
+	      magnetic fields, etc.) input and output (multimessenger
+	      signals) is urgently needed</li>
+	  </ul>
+	</div>
+      </article>
+      
+      <!-- ------------------------------------------------ -->
+
+      <article class="slide">
+	<div class="div_header">
+	  <h2>Physics Challenges</h2>
+	</div>
+	<div class="div_left_panel2">
+	  <ul class="tight">
+	    <li>Nuclear matter and the<br /> nucleon-nucleon
+	      interaction</li>
+	    <ul>
+	      <li>Neutron matter above saturation</li>
+	      <li>Nuclear matter</li>
+	    </ul>
+	    <li>Equation of state</li>
+	    <ul>
+	      <li>T=0, T&gt;0</li>
+	      <li>composition and exotica</li>
+	      <li>NS crust</li>
+	      <li>superconductivity and superfluidity</li>
+	    </ul>
+	</div>
+	<div class="div_right_panel2">
+	  <ul class="tight">
+	    <li>Transport properties</li>
+	    <ul>
+	      <li>Neutrinos</li>
+	      <ul>
+		<li>mean field</li>
+		<li>RPA</li>
+		<li>beyond</li>
+	      </ul>
+	      <li>Viscosity</li>
+	      <li>Others?</li>
+	    </ul>
+	    <li>Connection to nuclear structure and reactions</li>
+	  </ul>
+	</div>
+	<div class="div_footer">
+	  <h2>Practical Challenges</h2>
+	  <ul>
+	    <li>Microphysics in simulations significantly
+	      lags progress in theory</li>
+	  </ul>
+	</div>
+      </article>
+      
+      <!-- ------------------------------------------------ -->
+
+      <article class="slide">
+	<div class="div_header">
+	  <h2>"Horizons"</h2>
+	</div>
+	<div class="div_main">
+	  <ul>
+	    <li class="delayed">Can we identify the correct degrees of
+	      freedom at all
+	      relevant densities and temperatures?
+	    </li>
+	    <li class="delayed">What are the uncertainties in
+	      the EOS for neutron matter beyond nuclear saturation?</li>
+	    <li class="delayed">Can we <em>predict</em> nuclear
+	      saturation rather than fitting
+	      to the "empirical saturation point"?</li>
+	    <li class="delayed">How can we more effectively
+	      quantify the uncertainties
+	      associated with the EOS and transport phenomena in
+	      astrophysical
+	      environments?</li>
+	    <li class="delayed">How can we better connect the EOS
+	      and other properties
+	      of the NNI to experiments and observations?
+	    </li>
+	    <li class="delayed">Can we simultaneously describe
+	      light nuclei, heavy nuclei, and
+	      nuclear matter with the same Hamiltonian?</li>
+	  </ul>
+	</div>
+      </article>
+      
+    </section>
+    
+    <script src="https://isospin.roam.utk.edu/static/inspire_01_31_20/bliss.js">
+    </script>
+    <script src="https://isospin.roam.utk.edu/static/inspire_01_31_20/inspire.js">
+    </script>
+
+  </body>
+</html>
